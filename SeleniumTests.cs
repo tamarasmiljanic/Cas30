@@ -20,7 +20,7 @@ namespace Cas30SeleniumTests
 
         private string Test_Data_Email = "perica@gmail.com";
         private string Test_Data_Pass = "Perica1979";
-        private string Test_Data_User = "perica";
+        private string Test_Data_User = "perica1";
 
         string url = "http://shop.qa.rs/";
         [SetUp]
@@ -126,12 +126,40 @@ namespace Cas30SeleniumTests
                     }
                     
                     login.Click();
+                    
                     Assert.Pass();
                 }
             }catch (WebDriverTimeoutException)
             {
                 Assert.Fail();
             }
+        }
+
+        [Test]
+        [Category("SC")]
+        public void TestIfChartIsEmpty()
+        {
+            
+            TestLogIn();
+            try
+            {
+                IWebElement chartLink = wait.Until(EC.ElementToBeClickable(By.XPath("//ul[contains(@class,'nav')]//li[1]")));
+                if (chartLink.Displayed && chartLink.Enabled)
+                {
+                    chartLink.Click();
+                }
+                System.Threading.Thread.Sleep(5000);
+                IWebElement alert = wait.Until(EC.ElementIsVisible(By.XPath("div[@class='alert alert-warning']")));
+                if (alert.Displayed && alert.Enabled)
+                {
+                    Assert.Pass("Chart is empty");
+                }
+                
+            }catch (WebDriverTimeoutException)
+            {
+                Assert.Fail("Chart isn't empty");
+            }
+
         }
     }
 }
