@@ -98,6 +98,7 @@ namespace Cas30SeleniumTests
         }
 
         [Test]
+        [Category("SC")]
         public void TestLogIn()
         {
             IWebElement loginLink = driver.FindElement(By.XPath("//ul[@class='nav navbar-nav navbar-right']/li/a"));
